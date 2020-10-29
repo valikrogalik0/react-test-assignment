@@ -1,0 +1,36 @@
+.newsItem {
+    width: 250px;
+    height: 300px;
+    padding: 5px;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coloredLine {
+    border-width: 20px;
+    margin-bottom: 4px;
+}
+
+.navButtons {
+    display: inline-block;
+    justify-content: flex-end;
+}
+
+.navButtons > button {
+    width: 40px;
+    height: max-content;
+    border: none;
+    background-color: inherit;
+    outline: none;
+}
+
+.navButtons img {
+    cursor: pointer;
+}

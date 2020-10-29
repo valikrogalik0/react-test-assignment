@@ -12,7 +12,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   plugins: [
@@ -20,5 +20,26 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-use-before-define': [0],
+    '@typescript-eslint/no-use-before-define': [1],
+    'react/jsx-filename-extension': [0],
+    'jsx-a11y/label-has-associated-control': [0],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
 };
