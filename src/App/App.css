@@ -72,7 +72,6 @@ label:hover::after {
   color: var(--sub-color);
   font-size: 14px;
   font-weight: 300;
-
 }
 
 .smallText {
@@ -87,14 +86,4 @@ label:hover::after {
 }
 .bgGreen {
   background-color: green;
-}
-
-
-
-
-/* The element to apply the animation to */
-div {
-  width: 100px;
-  height: 100px;
-
 }
