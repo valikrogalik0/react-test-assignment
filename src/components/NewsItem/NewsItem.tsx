@@ -4,13 +4,19 @@ import {
   authorScoreIcon, copyIcon, redirectIcon, starIcon, userIcon,
 } from '../../images';
 
-import { IStoryRecord } from '../../types/RecordsStructure';
+import { IProps } from './INewsItem';
 import './NewsItem.css';
 
-const NewsItem: React.FC<{story: IStoryRecord, isLoading: boolean}> = (
-  { story, isLoading }: {story: IStoryRecord, isLoading: boolean },
+const NewsItem: React.FC<IProps> = (
+  { story, isLoading }: IProps,
 ) => {
-  const { user } = story;
+  const {
+    time,
+    url,
+    title,
+    score,
+    user,
+  } = story;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(story.url);
@@ -33,19 +39,19 @@ const NewsItem: React.FC<{story: IStoryRecord, isLoading: boolean}> = (
 
         <div className="nav">
           <span className="smallText">
-            {new Date(story.time).toLocaleDateString('en-US', {
+            {new Date(time).toLocaleDateString('en-US', {
               day: 'numeric', month: 'long', year: 'numeric',
             })}
           </span>
 
           <div className="navButtons">
-            <button value={story.url} type="button" onClick={goToURL}>
+            <button value={url} type="button" onClick={goToURL}>
               <label className="tooltipBottom" data-tooltip="Go to website">
                 <img src={redirectIcon} alt="Go to website" />
               </label>
             </button>
 
-            <button value={story.url} type="button" onClick={copyToClipboard}>
+            <button value={url} type="button" onClick={copyToClipboard}>
               <label className="tooltipBottom" data-tooltip="Copy to clipboard">
                 <img src={copyIcon} alt="Copy to clipboard" />
               </label>
@@ -53,12 +59,12 @@ const NewsItem: React.FC<{story: IStoryRecord, isLoading: boolean}> = (
           </div>
         </div>
 
-        <p className="mainText">{story.title}</p>
+        <p className="mainText">{title}</p>
 
         <p className="subText">
           <label data-tooltip="Stars">
             <img src={starIcon} alt="Stars" />
-            {story.score}
+            {score}
           </label>
         </p>
 

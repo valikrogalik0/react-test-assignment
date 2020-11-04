@@ -6,7 +6,9 @@ In the App component, you can find methods for loading data using fetchAPI,\
 This application is written using the minimum number of dependencies.
 
 # Application launch
-To run the application, enter the command 
+To run the application, you first need to install the dependencies by running the command
+### `npm install` 
+Then enter the command 
 ### `npm run start`
 Your browser page will open at 
 ### `http://localhost:3000`

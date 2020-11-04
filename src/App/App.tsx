@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 
 import NewsItem from '../components/NewsItem';
 
-import { IStoryRecord } from '../types/RecordsStructure';
+import HN from '../constants/APIRoutes';
+
+import { IStoryRecord } from '../types/IRecordsStructure';
 import './App.css';
+import { RECORD_FETCH_ERROR, USER_FETCH_ERROR } from '../constants/Errors';
 
 const App: React.FC = () => {
   const [stories, setStories] = useState<Array<IStoryRecord>>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const fetchData = () => fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+  const fetchData = () => fetch(`${HN}/topstories.json`)
     .then((res) => res.json())
     .then((res) => {
       const sortedRecords = res
@@ -18,20 +21,20 @@ const App: React.FC = () => {
         .slice(0, 10);
       return sortedRecords;
     })
-    .catch(() => setErrorMessage('Unable to load record data, please try again later'));
+    .catch(() => setErrorMessage(RECORD_FETCH_ERROR));
 
   const fetchStoryInfo = (storiesId: Array<number>) => Promise.all(
-    storiesId.map((storyId: number) => fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`)
+    storiesId.map((storyId: number) => fetch(`${HN}/item/${storyId}.json`)
       .then((res) => res.json())
       .then((story: Array<IStoryRecord>) => story)
-      .catch(() => setErrorMessage('Unable to load record data, please try again later'))),
+      .catch(() => setErrorMessage(RECORD_FETCH_ERROR))),
   );
 
   const fetchAuthorInfo = (storyRecords: IStoryRecord[] | any) => Promise.all(
-    storyRecords.map((storyItem: IStoryRecord) => fetch(`https://hacker-news.firebaseio.com/v0/user/${storyItem.by}.json`)
+    storyRecords.map((storyItem: IStoryRecord) => fetch(`${HN}/user/${storyItem.by}.json`)
       .then((res) => res.json())
       .then((res) => ({ ...storyItem, user: res }))
-      .catch(() => setErrorMessage('Unable to load user data,  please try again later'))),
+      .catch(() => setErrorMessage(USER_FETCH_ERROR))),
   );
 
   useEffect(() => {
@@ -53,8 +56,9 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+
       {!!errorMessage && <p className="notification bgRed">{errorMessage}</p>}
-      {!!isLoading && !errorMessage && <p className="notification bgGreen">Loading...</p>}
+      {isLoading && !errorMessage && <p className="notification bgGreen">Loading...</p>}
 
       {!errorMessage && stories.map((story: IStoryRecord) => (
         <NewsItem
